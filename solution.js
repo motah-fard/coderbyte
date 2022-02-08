@@ -55,9 +55,9 @@ const data = [
 // you believe improve the code while satisfying the requirements above.
 //----------------------
 function doProcessTrades(ddata) {
-  var totalValue = {},
+  var retObj = {},
     tradeObjs = [];
-  totalValue.symbols = [];
+  retObj.symbols = [];
   for (let i = 0; i < ddata.length; i++) {
     var tradeObj = ddata[i];
     if (tradeObj.id == "00000000-0000-0000-0000-000000000000")
@@ -66,18 +66,18 @@ function doProcessTrades(ddata) {
     // count = !count ? 1 : count + 1;
 
     // 1) add up prices
-    if (!totalValue["total" + tradeObj.currency])
-      totalValue["total" + tradeObj.currency] =
+    if (!retObj["total" + tradeObj.currency])
+      retObj["total" + tradeObj.currency] =
         tradeObj.price * tradeObj.quantity;
     else
-      totalValue["total" + tradeObj.currency] =
-        totalValue["total" + tradeObj.currency] +
+      retObj["total" + tradeObj.currency] =
+        retObj["total" + tradeObj.currency] +
         tradeObj.price * tradeObj.quantity;
 
     // 2) collect unique symbols
-    // if (!totalValue.symbols) a.symbols = [];
-    if (totalValue.symbols.indexOf(tradeObj.symbol) < 0)
-      totalValue.symbols = totalValue.symbols.concat([tradeObj.symbol]);
+    // if (!retObj.symbols) a.symbols = [];
+    if (retObj.symbols.indexOf(tradeObj.symbol) < 0)
+      retObj.symbols = retObj.symbols.concat([tradeObj.symbol]);
 
     // 3) handle missing names
     if (
@@ -92,8 +92,8 @@ function doProcessTrades(ddata) {
     tradeObjs = tradeObjs.concat(tradeObj);
   }
 
-  totalValue.tradeCount = tradeObjs.length;
-  totalValue.trades = tradeObjs;
+  retObj.tradeCount = tradeObjs.length;
+  retObj.trades = tradeObjs;
 
   // 5) remove bad trades - be sure to fix count if neeeded
   //   var removed = 0;
@@ -107,7 +107,7 @@ function doProcessTrades(ddata) {
   //     }
   //     a.tradeCount = a.tradeCount - removed;
   //   }
-  console.log(totalValue);
-  return totalValue;
+  console.log(retObj);
+  return retObj;
 }
 // doProcessTrades(data);
