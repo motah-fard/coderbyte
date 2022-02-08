@@ -54,21 +54,25 @@ const data = [
 // Submit a revised version of this function below, making any changes
 // you believe improve the code while satisfying the requirements above.
 //----------------------
-function doProcesstrades(ddata) {
+function doProcessTrades(ddata) {
   var totalValue = {},
-      tradeObjs = [];
+    tradeObjs = [];
   totalValue.symbols = [];
   for (let i = 0; i < ddata.length; i++) {
     var tradeObj = ddata[i];
-  if (tradeObj.id == "00000000-0000-0000-0000-000000000000")// skip bad trade
-    continue;
+    if (tradeObj.id == "00000000-0000-0000-0000-000000000000")
+      // skip bad trade
+      continue;
     // count = !count ? 1 : count + 1;
 
     // 1) add up prices
     if (!totalValue["total" + tradeObj.currency])
-      totalValue["total" + tradeObj.currency] = tradeObj.price * tradeObj.quantity;
+      totalValue["total" + tradeObj.currency] =
+        tradeObj.price * tradeObj.quantity;
     else
-      totalValue["total" + tradeObj.currency] = totalValue["total" + tradeObj.currency] + tradeObj.price * tradeObj.quantity;
+      totalValue["total" + tradeObj.currency] =
+        totalValue["total" + tradeObj.currency] +
+        tradeObj.price * tradeObj.quantity;
 
     // 2) collect unique symbols
     // if (!totalValue.symbols) a.symbols = [];
@@ -92,18 +96,18 @@ function doProcesstrades(ddata) {
   totalValue.trades = tradeObjs;
 
   // 5) remove bad trades - be sure to fix count if neeeded
-//   var removed = 0;
-//   for (let i = 0; i < a.trades.length; i++) {
-//     if (a.trades[i].id == "00000000-0000-0000-0000-000000000000") {
-//       console.error(`Bad trade removed ${a.trades[i]}`);
-//       removed++;
-//       let badTradeSym = a.trades[i].symbol;
-//       a.symbols.splice(a.symbols.indexOf(badTradeSym), 1);
-//       a.trades.splice(i, 1);
-//     }
-//     a.tradeCount = a.tradeCount - removed;
-//   }
-console.log(totalValue);
+  //   var removed = 0;
+  //   for (let i = 0; i < a.trades.length; i++) {
+  //     if (a.trades[i].id == "00000000-0000-0000-0000-000000000000") {
+  //       console.error(`Bad trade removed ${a.trades[i]}`);
+  //       removed++;
+  //       let badTradeSym = a.trades[i].symbol;
+  //       a.symbols.splice(a.symbols.indexOf(badTradeSym), 1);
+  //       a.trades.splice(i, 1);
+  //     }
+  //     a.tradeCount = a.tradeCount - removed;
+  //   }
+  console.log(totalValue);
   return totalValue;
 }
-doProcesstrades(data);
+// doProcessTrades(data);
